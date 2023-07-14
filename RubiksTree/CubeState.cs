@@ -5,12 +5,12 @@ internal class CubeState
 {
 	// front, right, back, left, top, bottom
 	private readonly FaceColour[,,] Faces;
-	private CubeState? TurnBottomLeft;
-	private CubeState? TurnBottomRight;
-	private CubeState? TurnRightForward;
-	private CubeState? TurnRightBack;
-	private CubeState? TurnBackLeft;
-	private CubeState? TurnBackRight;
+	private CubeState? TurnBottomLeftCubeState;
+	private CubeState? TurnBottomRightCubeState;
+	private CubeState? TurnRightForwardCubeState;
+	private CubeState? TurnRightBackCubeState;
+	private CubeState? TurnBackLeftCubeState;
+	private CubeState? TurnBackRightCubeState;
 	private readonly IList<CubeState> AllCubeStates;
 
 	public CubeState(FaceColour[,,] faces, IList<CubeState> allCubeStates)
@@ -41,10 +41,7 @@ internal class CubeState
 		turnBottomLeftFaces[5, 0, 1] = Faces[5, 1, 1];
 		turnBottomLeftFaces[5, 1, 0] = Faces[5, 0, 0];
 		turnBottomLeftFaces[5, 1, 1] = Faces[5, 1, 0];
-		var turnBottomLeftCubeState = new CubeState(turnBottomLeftFaces, AllCubeStates);
-		AllCubeStates.Add(turnBottomLeftCubeState);
-		TurnBottomLeft = turnBottomLeftCubeState;
-		turnBottomLeftCubeState.GenAllTurns();
+		ProcessFaces(turnBottomLeftFaces, ref TurnBottomLeftCubeState);
 
 		var turnBottomRightFaces = DeepCopyFaces();
 		turnBottomRightFaces[0, 1, 0] = Faces[3, 1, 0];
@@ -59,28 +56,22 @@ internal class CubeState
 		turnBottomRightFaces[5, 0, 1] = Faces[5, 0, 0];
 		turnBottomRightFaces[5, 1, 0] = Faces[5, 1, 1];
 		turnBottomRightFaces[5, 1, 1] = Faces[5, 0, 1];
-		var turnBottomRightCubeState = new CubeState(turnBottomRightFaces, AllCubeStates);
-		AllCubeStates.Add(turnBottomRightCubeState);
-		TurnBottomRight = turnBottomRightCubeState;
-		turnBottomRightCubeState.GenAllTurns();
+		ProcessFaces(turnBottomRightFaces, ref TurnBottomRightCubeState);
 
-		var turnRightFowardFaces = DeepCopyFaces();
-		turnRightFowardFaces[0, 0, 1] = Faces[4, 0, 1];
-		turnRightFowardFaces[0, 1, 1] = Faces[4, 1, 1];
-		turnRightFowardFaces[4, 0, 1] = Faces[2, 0, 1];
-		turnRightFowardFaces[4, 1, 1] = Faces[2, 1, 1];
-		turnRightFowardFaces[2, 0, 1] = Faces[5, 0, 1];
-		turnRightFowardFaces[2, 1, 1] = Faces[5, 1, 1];
-		turnRightFowardFaces[5, 0, 1] = Faces[0, 0, 1];
-		turnRightFowardFaces[5, 1, 1] = Faces[0, 1, 1];
-		turnRightFowardFaces[2, 0, 0] = Faces[2, 0, 1];
-		turnRightFowardFaces[2, 0, 1] = Faces[2, 1, 1];
-		turnRightFowardFaces[2, 1, 0] = Faces[2, 0, 0];
-		turnRightFowardFaces[2, 1, 1] = Faces[2, 1, 0];
-		var turnRightFowardCubeState = new CubeState(turnRightFowardFaces, AllCubeStates);
-		AllCubeStates.Add(turnRightFowardCubeState);
-		TurnRightForward = turnRightFowardCubeState;
-		turnRightFowardCubeState.GenAllTurns();
+		var turnRightForwardFaces = DeepCopyFaces();
+		turnRightForwardFaces[0, 0, 1] = Faces[4, 0, 1];
+		turnRightForwardFaces[0, 1, 1] = Faces[4, 1, 1];
+		turnRightForwardFaces[4, 0, 1] = Faces[2, 0, 1];
+		turnRightForwardFaces[4, 1, 1] = Faces[2, 1, 1];
+		turnRightForwardFaces[2, 0, 1] = Faces[5, 0, 1];
+		turnRightForwardFaces[2, 1, 1] = Faces[5, 1, 1];
+		turnRightForwardFaces[5, 0, 1] = Faces[0, 0, 1];
+		turnRightForwardFaces[5, 1, 1] = Faces[0, 1, 1];
+		turnRightForwardFaces[2, 0, 0] = Faces[2, 0, 1];
+		turnRightForwardFaces[2, 0, 1] = Faces[2, 1, 1];
+		turnRightForwardFaces[2, 1, 0] = Faces[2, 0, 0];
+		turnRightForwardFaces[2, 1, 1] = Faces[2, 1, 0];
+		ProcessFaces(turnRightForwardFaces, ref TurnRightForwardCubeState );
 
 		var turnRightBackFaces = DeepCopyFaces();
 		turnRightBackFaces[0, 0, 1] = Faces[5, 0, 1];
@@ -95,10 +86,7 @@ internal class CubeState
 		turnRightBackFaces[2, 0, 1] = Faces[2, 0, 0];
 		turnRightBackFaces[2, 1, 0] = Faces[2, 1, 1];
 		turnRightBackFaces[2, 1, 1] = Faces[2, 0, 1];
-		var turnRightBackCubeState= new CubeState(turnRightBackFaces, AllCubeStates);
-		AllCubeStates.Add(turnRightBackCubeState);
-		TurnRightBack = turnRightBackCubeState;
-		turnRightBackCubeState.GenAllTurns();
+		ProcessFaces(turnRightBackFaces, ref TurnRightBackCubeState);
 
 		var turnBackLeftFaces = DeepCopyFaces();
 		turnBackLeftFaces[1, 0, 1] = Faces[5, 1, 0];
@@ -113,10 +101,7 @@ internal class CubeState
 		turnBackLeftFaces[2, 0, 1] = Faces[2, 0, 0];
 		turnBackLeftFaces[2, 1, 0] = Faces[2, 1, 1];
 		turnBackLeftFaces[2, 1, 1] = Faces[2, 0, 1];
-		var turnBackLeftCubeState = new CubeState(turnBackLeftFaces, AllCubeStates);
-		AllCubeStates.Add(turnBackLeftCubeState);
-		TurnBackLeft = turnBackLeftCubeState;
-		turnBackLeftCubeState.GenAllTurns();
+		ProcessFaces(turnBackLeftFaces, ref TurnBackLeftCubeState);
 
 		var turnBackRightFaces = DeepCopyFaces();
 		turnBackRightFaces[1, 0, 1] = Faces[4, 0, 0];
@@ -131,9 +116,47 @@ internal class CubeState
 		turnBackRightFaces[2, 0, 1] = Faces[2, 1, 1];
 		turnBackRightFaces[2, 1, 0] = Faces[2, 0, 0];
 		turnBackRightFaces[2, 1, 1] = Faces[2, 1, 0];
-		var turnBackRightCubeState = new CubeState(turnBackRightFaces, AllCubeStates);
-		AllCubeStates.Add(turnBackRightCubeState);
-		TurnBackRight = turnBackRightCubeState;
-		turnBackRightCubeState.GenAllTurns();
+		ProcessFaces(turnBackRightFaces, ref TurnBackRightCubeState);
+	}
+
+	private void ProcessFaces(FaceColour[,,] faces, ref CubeState? cubeState)
+	{
+		if (DoesCubeStateExist(faces))
+		{
+			cubeState = CreateNewCubeState(faces);
+			cubeState.GenAllTurns();
+		}
+	}
+
+	private bool DoesCubeStateExist(FaceColour[,,] inputFaces)
+	{
+		foreach (var cubeState in AllCubeStates)
+		{
+			if (AreFacesEqual(inputFaces, cubeState.Faces)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,] testFaces)
+	{
+		var inputFacesEnumerator = inputFaces.GetEnumerator();
+		var testFacesEnumerator = testFaces.GetEnumerator();
+		while (inputFacesEnumerator.Current is not null)
+		{
+			if (inputFacesEnumerator.Current != testFacesEnumerator.Current)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private CubeState CreateNewCubeState(FaceColour[,,] faces)
+	{
+		var cubeState = new CubeState(faces, AllCubeStates);
+		AllCubeStates.Add(cubeState);
+		return cubeState;
 	}
 }
