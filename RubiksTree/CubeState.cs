@@ -142,13 +142,17 @@ internal class CubeState
 	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,] testFaces)
 	{
 		var inputFacesEnumerator = inputFaces.GetEnumerator();
+		inputFacesEnumerator.MoveNext();
 		var testFacesEnumerator = testFaces.GetEnumerator();
+		testFacesEnumerator.MoveNext();
 		while (inputFacesEnumerator.Current is not null)
 		{
 			if (inputFacesEnumerator.Current != testFacesEnumerator.Current)
 			{
 				return false;
 			}
+			inputFacesEnumerator.MoveNext();
+			testFacesEnumerator.MoveNext();
 		}
 		return true;
 	}
