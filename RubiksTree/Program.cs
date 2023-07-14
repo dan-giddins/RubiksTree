@@ -34,7 +34,11 @@ queue.Enqueue(baseState);
 var i = 0;
 while (queue.Count > 0)
 {
-	Console.WriteLine($"{i++}: {queue.Count}");
+	if (i % 100 == 0)
+	{
+		Console.WriteLine($"{i}: {queue.Count}");
+	}
 	queue.Dequeue().GenAllTurns(allCubeStates, queue);
+	i++;
 }
 var x = 0;
