@@ -44,6 +44,8 @@ internal class CubeState
 		var turnBottomLeftCubeState = new CubeState(turnBottomLeftFaces, AllCubeStates);
 		AllCubeStates.Add(turnBottomLeftCubeState);
 		TurnBottomLeft = turnBottomLeftCubeState;
+		turnBottomLeftCubeState.GenAllTurns();
+
 		var turnBottomRightFaces = DeepCopyFaces();
 		turnBottomRightFaces[0, 1, 0] = Faces[3, 1, 0];
 		turnBottomRightFaces[0, 1, 1] = Faces[3, 1, 1];
@@ -60,6 +62,8 @@ internal class CubeState
 		var turnBottomRightCubeState = new CubeState(turnBottomRightFaces, AllCubeStates);
 		AllCubeStates.Add(turnBottomRightCubeState);
 		TurnBottomRight = turnBottomRightCubeState;
+		turnBottomRightCubeState.GenAllTurns();
+
 		var turnRightFowardFaces = DeepCopyFaces();
 		turnRightFowardFaces[0, 0, 1] = Faces[4, 0, 1];
 		turnRightFowardFaces[0, 1, 1] = Faces[4, 1, 1];
@@ -76,6 +80,8 @@ internal class CubeState
 		var turnRightFowardCubeState = new CubeState(turnRightFowardFaces, AllCubeStates);
 		AllCubeStates.Add(turnRightFowardCubeState);
 		TurnRightForward = turnRightFowardCubeState;
+		turnRightFowardCubeState.GenAllTurns();
+
 		var turnRightBackFaces = DeepCopyFaces();
 		turnRightBackFaces[0, 0, 1] = Faces[5, 0, 1];
 		turnRightBackFaces[0, 1, 1] = Faces[5, 1, 1];
@@ -92,6 +98,8 @@ internal class CubeState
 		var turnRightBackCubeState= new CubeState(turnRightBackFaces, AllCubeStates);
 		AllCubeStates.Add(turnRightBackCubeState);
 		TurnRightBack = turnRightBackCubeState;
+		turnRightBackCubeState.GenAllTurns();
+
 		var turnBackLeftFaces = DeepCopyFaces();
 		turnBackLeftFaces[1, 0, 1] = Faces[5, 1, 0];
 		turnBackLeftFaces[1, 1, 1] = Faces[5, 1, 1];
@@ -108,6 +116,8 @@ internal class CubeState
 		var turnBackLeftCubeState = new CubeState(turnBackLeftFaces, AllCubeStates);
 		AllCubeStates.Add(turnBackLeftCubeState);
 		TurnBackLeft = turnBackLeftCubeState;
+		turnBackLeftCubeState.GenAllTurns();
+
 		var turnBackRightFaces = DeepCopyFaces();
 		turnBackRightFaces[1, 0, 1] = Faces[4, 0, 0];
 		turnBackRightFaces[1, 1, 1] = Faces[4, 0, 1];
@@ -124,5 +134,6 @@ internal class CubeState
 		var turnBackRightCubeState = new CubeState(turnBackRightFaces, AllCubeStates);
 		AllCubeStates.Add(turnBackRightCubeState);
 		TurnBackRight = turnBackRightCubeState;
+		turnBackRightCubeState.GenAllTurns();
 	}
 }
