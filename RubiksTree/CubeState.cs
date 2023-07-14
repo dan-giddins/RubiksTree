@@ -63,10 +63,10 @@ internal class CubeState
 		turnRightForwardFaces[2, 1, 1] = Faces[5, 1, 1];
 		turnRightForwardFaces[5, 0, 1] = Faces[0, 0, 1];
 		turnRightForwardFaces[5, 1, 1] = Faces[0, 1, 1];
-		turnRightForwardFaces[2, 0, 0] = Faces[2, 0, 1];
-		turnRightForwardFaces[2, 0, 1] = Faces[2, 1, 1];
-		turnRightForwardFaces[2, 1, 0] = Faces[2, 0, 0];
-		turnRightForwardFaces[2, 1, 1] = Faces[2, 1, 0];
+		turnRightForwardFaces[1, 0, 0] = Faces[1, 0, 1];
+		turnRightForwardFaces[1, 0, 1] = Faces[1, 1, 1];
+		turnRightForwardFaces[1, 1, 0] = Faces[1, 0, 0];
+		turnRightForwardFaces[1, 1, 1] = Faces[1, 1, 0];
 		ProcessFaces(turnRightForwardFaces, ref TurnRightForwardCubeState, allCubeStates, queue);
 
 		var turnRightBackFaces = DeepCopyFaces();
@@ -78,10 +78,10 @@ internal class CubeState
 		turnRightBackFaces[2, 1, 1] = Faces[4, 1, 1];
 		turnRightBackFaces[5, 0, 1] = Faces[2, 0, 1];
 		turnRightBackFaces[5, 1, 1] = Faces[2, 1, 1];
-		turnRightBackFaces[2, 0, 0] = Faces[2, 1, 0];
-		turnRightBackFaces[2, 0, 1] = Faces[2, 0, 0];
-		turnRightBackFaces[2, 1, 0] = Faces[2, 1, 1];
-		turnRightBackFaces[2, 1, 1] = Faces[2, 0, 1];
+		turnRightBackFaces[1, 0, 0] = Faces[1, 1, 0];
+		turnRightBackFaces[1, 0, 1] = Faces[1, 0, 0];
+		turnRightBackFaces[1, 1, 0] = Faces[1, 1, 1];
+		turnRightBackFaces[1, 1, 1] = Faces[1, 0, 1];
 		ProcessFaces(turnRightBackFaces, ref TurnRightBackCubeState, allCubeStates, queue);
 
 		var turnBackLeftFaces = DeepCopyFaces();
@@ -138,17 +138,14 @@ internal class CubeState
 	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,] testFaces)
 	{
 		var inputFacesEnumerator = inputFaces.GetEnumerator();
-		inputFacesEnumerator.MoveNext();
-		var testFacesEnumerator = testFaces.GetEnumerator();
-		testFacesEnumerator.MoveNext();
-		while (inputFacesEnumerator.Current is not null)
+		var testFacesEnumerator = testFaces.GetEnumerator();	
+		while (inputFacesEnumerator.MoveNext())
 		{
-			if (inputFacesEnumerator.Current != testFacesEnumerator.Current)
+			testFacesEnumerator.MoveNext();
+			if ((FaceColour) inputFacesEnumerator.Current != (FaceColour) testFacesEnumerator.Current)
 			{
 				return false;
 			}
-			inputFacesEnumerator.MoveNext();
-			testFacesEnumerator.MoveNext();
 		}
 		return true;
 	}
