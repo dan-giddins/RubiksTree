@@ -117,7 +117,7 @@ internal class CubeState
 
 	private void ProcessFaces(FaceColour[,,] faces, ref CubeState? cubeState, IList<CubeState> allCubeStates, Queue<CubeState> queue)
 	{
-		if (DoesCubeStateExist(faces, allCubeStates))
+		if (!DoesCubeStateExist(faces, allCubeStates))
 		{
 			cubeState = CreateNewCubeState(faces, allCubeStates);
 			queue.Enqueue(cubeState);
@@ -129,10 +129,10 @@ internal class CubeState
 		foreach (var cubeState in allCubeStates)
 		{
 			if (AreFacesEqual(inputFaces, cubeState.Faces)) {
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,] testFaces)
