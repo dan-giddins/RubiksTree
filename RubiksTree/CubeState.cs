@@ -11,13 +11,9 @@ internal class CubeState
 	private CubeState? TurnRightBackCubeState;
 	private CubeState? TurnBackLeftCubeState;
 	private CubeState? TurnBackRightCubeState;
-	private readonly IList<CubeState> AllCubeStates;
 
-	public CubeState(FaceColour[,,] faces, IList<CubeState> allCubeStates)
-	{
+	public CubeState(FaceColour[,,] faces) =>
 		Faces = faces;
-		AllCubeStates = allCubeStates;
-	}
 
 	private FaceColour[,,] DeepCopyFaces()
 	{
@@ -26,7 +22,7 @@ internal class CubeState
 		return result;
 	}
 
-	public void GenAllTurns()
+	public void GenAllTurns(IList<CubeState> allCubeStates, Queue<CubeState> queue)
 	{
 		var turnBottomLeftFaces = DeepCopyFaces();
 		turnBottomLeftFaces[0, 1, 0] = Faces[1, 1, 0];
@@ -41,7 +37,7 @@ internal class CubeState
 		turnBottomLeftFaces[5, 0, 1] = Faces[5, 1, 1];
 		turnBottomLeftFaces[5, 1, 0] = Faces[5, 0, 0];
 		turnBottomLeftFaces[5, 1, 1] = Faces[5, 1, 0];
-		ProcessFaces(turnBottomLeftFaces, ref TurnBottomLeftCubeState);
+		ProcessFaces(turnBottomLeftFaces, ref TurnBottomLeftCubeState, allCubeStates, queue);
 
 		var turnBottomRightFaces = DeepCopyFaces();
 		turnBottomRightFaces[0, 1, 0] = Faces[3, 1, 0];
@@ -56,7 +52,7 @@ internal class CubeState
 		turnBottomRightFaces[5, 0, 1] = Faces[5, 0, 0];
 		turnBottomRightFaces[5, 1, 0] = Faces[5, 1, 1];
 		turnBottomRightFaces[5, 1, 1] = Faces[5, 0, 1];
-		ProcessFaces(turnBottomRightFaces, ref TurnBottomRightCubeState);
+		ProcessFaces(turnBottomRightFaces, ref TurnBottomRightCubeState, allCubeStates, queue);
 
 		var turnRightForwardFaces = DeepCopyFaces();
 		turnRightForwardFaces[0, 0, 1] = Faces[4, 0, 1];
@@ -71,7 +67,7 @@ internal class CubeState
 		turnRightForwardFaces[2, 0, 1] = Faces[2, 1, 1];
 		turnRightForwardFaces[2, 1, 0] = Faces[2, 0, 0];
 		turnRightForwardFaces[2, 1, 1] = Faces[2, 1, 0];
-		ProcessFaces(turnRightForwardFaces, ref TurnRightForwardCubeState );
+		ProcessFaces(turnRightForwardFaces, ref TurnRightForwardCubeState, allCubeStates, queue);
 
 		var turnRightBackFaces = DeepCopyFaces();
 		turnRightBackFaces[0, 0, 1] = Faces[5, 0, 1];
@@ -86,7 +82,7 @@ internal class CubeState
 		turnRightBackFaces[2, 0, 1] = Faces[2, 0, 0];
 		turnRightBackFaces[2, 1, 0] = Faces[2, 1, 1];
 		turnRightBackFaces[2, 1, 1] = Faces[2, 0, 1];
-		ProcessFaces(turnRightBackFaces, ref TurnRightBackCubeState);
+		ProcessFaces(turnRightBackFaces, ref TurnRightBackCubeState, allCubeStates, queue);
 
 		var turnBackLeftFaces = DeepCopyFaces();
 		turnBackLeftFaces[1, 0, 1] = Faces[5, 1, 0];
@@ -101,7 +97,7 @@ internal class CubeState
 		turnBackLeftFaces[2, 0, 1] = Faces[2, 0, 0];
 		turnBackLeftFaces[2, 1, 0] = Faces[2, 1, 1];
 		turnBackLeftFaces[2, 1, 1] = Faces[2, 0, 1];
-		ProcessFaces(turnBackLeftFaces, ref TurnBackLeftCubeState);
+		ProcessFaces(turnBackLeftFaces, ref TurnBackLeftCubeState, allCubeStates, queue);
 
 		var turnBackRightFaces = DeepCopyFaces();
 		turnBackRightFaces[1, 0, 1] = Faces[4, 0, 0];
@@ -116,21 +112,21 @@ internal class CubeState
 		turnBackRightFaces[2, 0, 1] = Faces[2, 1, 1];
 		turnBackRightFaces[2, 1, 0] = Faces[2, 0, 0];
 		turnBackRightFaces[2, 1, 1] = Faces[2, 1, 0];
-		ProcessFaces(turnBackRightFaces, ref TurnBackRightCubeState);
+		ProcessFaces(turnBackRightFaces, ref TurnBackRightCubeState, allCubeStates, queue);
 	}
 
-	private void ProcessFaces(FaceColour[,,] faces, ref CubeState? cubeState)
+	private void ProcessFaces(FaceColour[,,] faces, ref CubeState? cubeState, IList<CubeState> allCubeStates, Queue<CubeState> queue)
 	{
-		if (DoesCubeStateExist(faces))
+		if (DoesCubeStateExist(faces, allCubeStates))
 		{
-			cubeState = CreateNewCubeState(faces);
-			cubeState.GenAllTurns();
+			cubeState = CreateNewCubeState(faces, allCubeStates);
+			queue.Enqueue(cubeState);
 		}
 	}
 
-	private bool DoesCubeStateExist(FaceColour[,,] inputFaces)
+	private bool DoesCubeStateExist(FaceColour[,,] inputFaces, IList<CubeState> allCubeStates)
 	{
-		foreach (var cubeState in AllCubeStates)
+		foreach (var cubeState in allCubeStates)
 		{
 			if (AreFacesEqual(inputFaces, cubeState.Faces)) {
 				return false;
@@ -157,10 +153,10 @@ internal class CubeState
 		return true;
 	}
 
-	private CubeState CreateNewCubeState(FaceColour[,,] faces)
+	private CubeState CreateNewCubeState(FaceColour[,,] faces, IList<CubeState> allCubeStates)
 	{
-		var cubeState = new CubeState(faces, AllCubeStates);
-		AllCubeStates.Add(cubeState);
+		var cubeState = new CubeState(faces);
+		allCubeStates.Add(cubeState);
 		return cubeState;
 	}
 }

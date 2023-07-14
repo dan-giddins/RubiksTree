@@ -27,8 +27,9 @@ var baseState = new CubeState(
 			{ FaceColour.Green, FaceColour.Green },
 			{ FaceColour.Green, FaceColour.Green }
 		}
-},
-	allCubeStates);
+});
 allCubeStates.Add(baseState);
-baseState.GenAllTurns();
-var x = 1;
+var queue = new Queue<CubeState>();
+queue.Enqueue(baseState);
+baseState.GenAllTurns(allCubeStates, queue);
+var x = 0;
