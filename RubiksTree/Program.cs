@@ -40,10 +40,12 @@ lock (queue)
 var queueItemsProcessed = 0;
 while (queueItemsProcessed < 10000)
 {
-	if (queueItemsProcessed % 100 == 0)
+	if (queueItemsProcessed % 1000 == 0)
 	{
 		Console.WriteLine($"{queueItemsProcessed}: {queue.Count}");
 	}
+	//await Task.Run(queue.Dequeue());
+	//queueItemsProcessed++;
 	lock (queue)
 	{
 		if (queue.TryDequeue(out var action))
@@ -53,4 +55,5 @@ while (queueItemsProcessed < 10000)
 		}
 	}
 }
+Console.WriteLine("Done.");
 Console.ReadKey();
