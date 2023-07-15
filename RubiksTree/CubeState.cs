@@ -125,7 +125,6 @@ internal class CubeState
 		TurnBackRightCubeState.TurnBackLeftCubeState = this;
 	}
 
-	// cubestate, created
 	private CubeState ProcessFaces(
 		FaceColour[,,] faces,
 		CubeState? cubeState,
