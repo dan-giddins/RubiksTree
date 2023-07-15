@@ -26,7 +26,10 @@ internal class CubeState
 		return result;
 	}
 
-	public void GenAllTurns(IList<CubeState> allCubeStates, Queue<CubeState> queue)
+	public Action GetGenAllTurnsAction(IList<CubeState> allCubeStates, Queue<Action> queue) =>
+		() => GenAllTurns(allCubeStates, queue);
+
+	public void GenAllTurns(IList<CubeState> allCubeStates, Queue<Action> queue)
 	{
 		var turnBottomLeftFaces = DeepCopyFaces();
 		turnBottomLeftFaces[0, 1, 0] = Faces[1, 1, 0];
@@ -129,13 +132,16 @@ internal class CubeState
 		FaceColour[,,] faces,
 		CubeState? cubeState,
 		IList<CubeState> allCubeStates,
-		Queue<CubeState> queue)
+		Queue<Action> queue)
 	{
 		cubeState = GetCubeStateIfExists(faces, allCubeStates, cubeState);
 		if (cubeState is null)
 		{
 			cubeState = CreateNewCubeState(faces, allCubeStates);
-			queue.Enqueue(cubeState);
+			lock (queue)
+			{
+				queue.Enqueue(cubeState.GetGenAllTurnsAction(allCubeStates, queue));
+			}
 		}
 		return cubeState;
 	}
@@ -146,9 +152,10 @@ internal class CubeState
 		{
 			return cubeState;
 		}
-		foreach (var testCubeState in allCubeStates)
+		for (var i = 0; i < allCubeStates.Count; i++)
 		{
-			if (AreFacesEqual(inputFaces, testCubeState.Faces))
+			var testCubeState = allCubeStates[i];
+			if (AreFacesEqual(inputFaces, testCubeState?.Faces))
 			{
 				return testCubeState;
 			}
@@ -156,8 +163,12 @@ internal class CubeState
 		return null;
 	}
 
-	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,] testFaces)
+	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,]? testFaces)
 	{
+		if (testFaces is null)
+		{
+			return false;
+		}
 		var inputFacesEnumerator = inputFaces.GetEnumerator();
 		var testFacesEnumerator = testFaces.GetEnumerator();
 		while (inputFacesEnumerator.MoveNext())
