@@ -37,7 +37,7 @@ queue.Enqueue(solvedState.GetGenAllTurnsTask(allCubeStates, queue));
 var queueItemsProcessed = 0;
 while (queue.Count > 0 && queueItemsProcessed < 10000)
 {
-	if (queueItemsProcessed % 100 == 0)
+	if (queueItemsProcessed % 1 == 0)
 	{
 		Console.WriteLine($"{queueItemsProcessed}: {queue.Count}");
 	}

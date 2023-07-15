@@ -152,7 +152,7 @@ internal class CubeState
 		for (var i = 0; i < allCubeStates.Count; i++)
 		{
 			var testCubeState = allCubeStates[i];
-			if (AreFacesEqual(inputFaces, testCubeState.Faces))
+			if (AreFacesEqual(inputFaces, testCubeState?.Faces))
 			{
 				return testCubeState;
 			}
@@ -160,8 +160,12 @@ internal class CubeState
 		return null;
 	}
 
-	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,] testFaces)
+	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,]? testFaces)
 	{
+		if (testFaces is null)
+		{
+			return false;
+		}
 		var inputFacesEnumerator = inputFaces.GetEnumerator();
 		var testFacesEnumerator = testFaces.GetEnumerator();
 		while (inputFacesEnumerator.MoveNext())
