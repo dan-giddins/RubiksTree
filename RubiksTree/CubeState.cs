@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace RubiksTree;
+﻿namespace RubiksTree;
 internal class CubeState
 {
 	// front, right, back, left, top, bottom
@@ -148,7 +146,8 @@ internal class CubeState
 		}
 		foreach (var testCubeState in allCubeStates)
 		{
-			if (AreFacesEqual(inputFaces, testCubeState.Faces)) {
+			if (AreFacesEqual(inputFaces, testCubeState.Faces))
+			{
 				return testCubeState;
 			}
 		}
@@ -158,11 +157,11 @@ internal class CubeState
 	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,] testFaces)
 	{
 		var inputFacesEnumerator = inputFaces.GetEnumerator();
-		var testFacesEnumerator = testFaces.GetEnumerator();	
+		var testFacesEnumerator = testFaces.GetEnumerator();
 		while (inputFacesEnumerator.MoveNext())
 		{
 			_ = testFacesEnumerator.MoveNext();
-			if ((FaceColour) inputFacesEnumerator.Current != (FaceColour) testFacesEnumerator.Current)
+			if ((FaceColour)inputFacesEnumerator.Current != (FaceColour)testFacesEnumerator.Current)
 			{
 				return false;
 			}
@@ -172,7 +171,7 @@ internal class CubeState
 
 	private CubeState CreateNewCubeState(FaceColour[,,] faces, IList<CubeState> allCubeStates)
 	{
-		var cubeState = new CubeState(faces, Depth+1);
+		var cubeState = new CubeState(faces, Depth + 1);
 		allCubeStates.Add(cubeState);
 		return cubeState;
 	}
