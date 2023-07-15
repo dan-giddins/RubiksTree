@@ -44,3 +44,4 @@ while (queue.Count > 0 && queueItemsProcessed < 1000)
 	queue.Dequeue().GenAllTurns(allCubeStates, queue);
 	queueItemsProcessed++;
 }
+Console.ReadKey();
