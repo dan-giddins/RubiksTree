@@ -37,7 +37,7 @@ internal class CubeState
 		turnBottomLeftFaces[5, 0, 1] = Faces[5, 1, 1];
 		turnBottomLeftFaces[5, 1, 0] = Faces[5, 0, 0];
 		turnBottomLeftFaces[5, 1, 1] = Faces[5, 1, 0];
-		ProcessFaces(turnBottomLeftFaces, ref TurnBottomLeftCubeState, allCubeStates, queue);
+		ProcessFaces(turnBottomLeftFaces, ref TurnBottomLeftCubeState, allCubeStates, queue, "TurnBottomRightCubeState");
 
 		var turnBottomRightFaces = DeepCopyFaces();
 		turnBottomRightFaces[0, 1, 0] = Faces[3, 1, 0];
@@ -115,12 +115,18 @@ internal class CubeState
 		ProcessFaces(turnBackRightFaces, ref TurnBackRightCubeState, allCubeStates, queue);
 	}
 
-	private void ProcessFaces(FaceColour[,,] faces, ref CubeState? cubeState, IList<CubeState> allCubeStates, Queue<CubeState> queue)
+	private void ProcessFaces(
+		FaceColour[,,] faces,
+		ref CubeState? newCubeStateRef,
+		IList<CubeState> allCubeStates,
+		Queue<CubeState> queue,
+		string inverseCubeStatePropertyName)
 	{
 		if (!DoesCubeStateExist(faces, allCubeStates))
 		{
-			cubeState = CreateNewCubeState(faces, allCubeStates);
-			queue.Enqueue(cubeState);
+			newCubeStateRef = CreateNewCubeState(faces, allCubeStates);
+			newCubeStateRef.GetType().GetProperty(inverseCubeStatePropertyName)
+			queue.Enqueue(newCubeStateRef);
 		}
 	}
 

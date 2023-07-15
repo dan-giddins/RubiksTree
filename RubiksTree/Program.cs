@@ -1,6 +1,7 @@
 ﻿using RubiksTree;
+
 var allCubeStates = new List<CubeState>();
-var baseState = new CubeState(
+var solvedState = new CubeState(
 	new FaceColour[,,]
 	{
 		{
@@ -28,11 +29,11 @@ var baseState = new CubeState(
 			{ FaceColour.Green, FaceColour.Green }
 		}
 });
-allCubeStates.Add(baseState);
+allCubeStates.Add(solvedState);
 var queue = new Queue<CubeState>();
-queue.Enqueue(baseState);
+queue.Enqueue(solvedState);
 var i = 0;
-while (queue.Count > 0)
+while (queue.Count > 0 && i < 1000)
 {
 	if (i % 100 == 0)
 	{
