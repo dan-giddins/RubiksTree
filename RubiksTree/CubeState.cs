@@ -149,8 +149,9 @@ internal class CubeState
 		{
 			return cubeState;
 		}
-		foreach (var testCubeState in allCubeStates)
+		for (var i = 0; i < allCubeStates.Count; i++)
 		{
+			var testCubeState = allCubeStates[i];
 			if (AreFacesEqual(inputFaces, testCubeState.Faces))
 			{
 				return testCubeState;
