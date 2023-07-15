@@ -42,4 +42,3 @@ while (queue.Count > 0 && i < 1000)
 	queue.Dequeue().GenAllTurns(allCubeStates, queue);
 	i++;
 }
-var x = 0;
