@@ -29,7 +29,8 @@ var solvedState = new CubeState(
 			{ FaceColour.Green, FaceColour.Green }
 		}
 	},
-	0);
+	0,
+	null);
 allCubeStates.Add(solvedState);
 var queue = new Queue<CubeState>();
 queue.Enqueue(solvedState);
