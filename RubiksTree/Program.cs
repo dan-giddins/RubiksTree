@@ -29,7 +29,8 @@ var solvedState = new CubeState(
 			{ FaceColour.Green, FaceColour.Green }
 		}
 	},
-	0);
+	0,
+	null);
 allCubeStates.Add(solvedState);
 var queue = new Queue<CubeState>();
 queue.Enqueue(solvedState);
@@ -43,3 +44,4 @@ while (queue.Count > 0 && queueItemsProcessed < 1000)
 	queue.Dequeue().GenAllTurns(allCubeStates, queue);
 	queueItemsProcessed++;
 }
+Console.ReadKey();
