@@ -28,17 +28,18 @@ var solvedState = new CubeState(
 			{ FaceColour.Green, FaceColour.Green },
 			{ FaceColour.Green, FaceColour.Green }
 		}
-});
+	},
+	0);
 allCubeStates.Add(solvedState);
 var queue = new Queue<CubeState>();
 queue.Enqueue(solvedState);
-var i = 0;
-while (queue.Count > 0 && i < 1000)
+var queueItemsProcessed = 0;
+while (queue.Count > 0 && queueItemsProcessed < 1000)
 {
-	if (i % 100 == 0)
+	if (queueItemsProcessed % 100 == 0)
 	{
-		Console.WriteLine($"{i}: {queue.Count}");
+		Console.WriteLine($"{queueItemsProcessed}: {queue.Count}");
 	}
 	queue.Dequeue().GenAllTurns(allCubeStates, queue);
-	i++;
+	queueItemsProcessed++;
 }

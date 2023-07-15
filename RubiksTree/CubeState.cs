@@ -11,9 +11,13 @@ internal class CubeState
 	private CubeState? TurnRightBackCubeState;
 	private CubeState? TurnBackLeftCubeState;
 	private CubeState? TurnBackRightCubeState;
+	private readonly int Depth;
 
-	public CubeState(FaceColour[,,] faces) =>
+	public CubeState(FaceColour[,,] faces, int depth)
+	{
 		Faces = faces;
+		Depth = depth;
+	}
 
 	private FaceColour[,,] DeepCopyFaces()
 	{
@@ -121,7 +125,7 @@ internal class CubeState
 		TurnBackRightCubeState.TurnBackLeftCubeState = this;
 	}
 
-	private static CubeState ProcessFaces(
+	private CubeState ProcessFaces(
 		FaceColour[,,] faces,
 		CubeState? cubeState,
 		IList<CubeState> allCubeStates,
@@ -166,9 +170,9 @@ internal class CubeState
 		return true;
 	}
 
-	private static CubeState CreateNewCubeState(FaceColour[,,] faces, IList<CubeState> allCubeStates)
+	private CubeState CreateNewCubeState(FaceColour[,,] faces, IList<CubeState> allCubeStates)
 	{
-		var cubeState = new CubeState(faces);
+		var cubeState = new CubeState(faces, Depth+1);
 		allCubeStates.Add(cubeState);
 		return cubeState;
 	}
