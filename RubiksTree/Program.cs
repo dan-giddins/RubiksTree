@@ -32,16 +32,16 @@ var solvedState = new CubeState(
 	0,
 	null);
 allCubeStates.Add(solvedState);
-var queue = new Queue<CubeState>();
-queue.Enqueue(solvedState);
+var queue = new Queue<Task>();
+queue.Enqueue(solvedState.GetGenAllTurnsTask(allCubeStates, queue));
 var queueItemsProcessed = 0;
-while (queue.Count > 0 && queueItemsProcessed < 1000)
+while (queue.Count > 0 && queueItemsProcessed < 10000)
 {
 	if (queueItemsProcessed % 100 == 0)
 	{
 		Console.WriteLine($"{queueItemsProcessed}: {queue.Count}");
 	}
-	queue.Dequeue().GenAllTurns(allCubeStates, queue);
+	await queue.Dequeue();
 	queueItemsProcessed++;
 }
 Console.ReadKey();
