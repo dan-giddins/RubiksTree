@@ -57,5 +57,5 @@ while (queueItemsProcessed < 100000)
 	}
 }
 Console.WriteLine("Done.");
-var groupedStates = allCubeStates.GroupBy(x => x.Depth);
-Console.ReadKey();
+//var groupedStates = allCubeStates.GroupBy(x => x.Depth);
+//Console.ReadKey();
