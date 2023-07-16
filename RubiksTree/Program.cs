@@ -44,7 +44,12 @@ while (queueItemsProcessed < 100000)
 {
 	if (queueItemsProcessed % 1000 == 0)
 	{
-		Console.WriteLine($"{queueItemsProcessed}: {queue.Count}");
+		int count;
+		lock (queue)
+		{
+			count = queue.Count;
+		}
+		Console.WriteLine($"{queueItemsProcessed}: {count}");
 	}
 	bool gotItem;
 	lock (queue)
