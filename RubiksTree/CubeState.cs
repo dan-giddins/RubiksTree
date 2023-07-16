@@ -149,7 +149,7 @@ internal class CubeState
 		return cubeState;
 	}
 
-	private CubeState? GetCubeStateIfExists(FaceColour[,,] inputFaces, IList<CubeState> allCubeStates, CubeState? cubeState)
+	private static CubeState? GetCubeStateIfExists(FaceColour[,,] inputFaces, IList<CubeState> allCubeStates, CubeState? cubeState)
 	{
 		if (cubeState is not null)
 		{
@@ -166,10 +166,7 @@ internal class CubeState
 		return null;
 	}
 
-#pragma warning disable CA1822 // Mark members as static
-	// this cannot be static as it causes problems when multithreading
-	private bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,]? testFaces)
-#pragma warning restore CA1822 // Mark members as static
+	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,]? testFaces)
 	{
 		if (testFaces is null)
 		{
