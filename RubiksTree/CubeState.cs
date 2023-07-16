@@ -166,6 +166,7 @@ internal class CubeState
 	}
 
 #pragma warning disable CA1822 // Mark members as static
+	// this cannot be static as it causes problems when multithreading
 	private bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,]? testFaces)
 #pragma warning restore CA1822 // Mark members as static
 	{

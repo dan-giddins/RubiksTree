@@ -38,7 +38,7 @@ lock (queue)
 	queue.Enqueue(solvedState.GetGenAllTurnsAction(allCubeStates, queue));
 }
 var queueItemsProcessed = 0;
-while (queueItemsProcessed < 1)
+while (queueItemsProcessed < 100000)
 {
 	if (queueItemsProcessed % 1000 == 0)
 	{
