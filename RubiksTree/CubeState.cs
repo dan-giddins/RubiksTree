@@ -140,9 +140,10 @@ internal class CubeState
 		if (cubeState is null)
 		{
 			cubeState = CreateNewCubeState(faces, allCubeStates);
+			var action = cubeState.GetGenAllTurnsAction(allCubeStates, queue);
 			lock (queue)
 			{
-				queue.Enqueue(cubeState.GetGenAllTurnsAction(allCubeStates, queue));
+				queue.Enqueue(action);
 			}
 		}
 		return cubeState;
