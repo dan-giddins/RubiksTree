@@ -9,8 +9,10 @@ internal class CubeState
 	private CubeState? TurnRightBackCubeState;
 	private CubeState? TurnBackLeftCubeState;
 	private CubeState? TurnBackRightCubeState;
+#pragma warning disable IDE0052 // Remove unread private members
 	private readonly CubeState? SolutionMove;
-	private readonly int Depth;
+#pragma warning restore IDE0052 // Remove unread private members
+	public readonly int Depth;
 
 	public CubeState(FaceColour[,,] faces, int depth, CubeState? solutionMove)
 	{
@@ -146,7 +148,7 @@ internal class CubeState
 		return cubeState;
 	}
 
-	private static CubeState? GetCubeStateIfExists(FaceColour[,,] inputFaces, IList<CubeState> allCubeStates, CubeState? cubeState)
+	private CubeState? GetCubeStateIfExists(FaceColour[,,] inputFaces, IList<CubeState> allCubeStates, CubeState? cubeState)
 	{
 		if (cubeState is not null)
 		{
@@ -163,7 +165,9 @@ internal class CubeState
 		return null;
 	}
 
-	private static bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,]? testFaces)
+#pragma warning disable CA1822 // Mark members as static
+	private bool AreFacesEqual(FaceColour[,,] inputFaces, FaceColour[,,]? testFaces)
+#pragma warning restore CA1822 // Mark members as static
 	{
 		if (testFaces is null)
 		{
@@ -174,7 +178,12 @@ internal class CubeState
 		while (inputFacesEnumerator.MoveNext())
 		{
 			_ = testFacesEnumerator.MoveNext();
-			if ((FaceColour)inputFacesEnumerator.Current != (FaceColour)testFacesEnumerator.Current)
+			var current = inputFacesEnumerator.Current;
+			var current1 = testFacesEnumerator.Current;
+			var current2 = (FaceColour)current;
+			var current11 = (FaceColour)current1;
+			var v = current2 != current11;
+			if (v)
 			{
 				return false;
 			}

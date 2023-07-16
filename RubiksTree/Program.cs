@@ -38,7 +38,7 @@ lock (queue)
 	queue.Enqueue(solvedState.GetGenAllTurnsAction(allCubeStates, queue));
 }
 var queueItemsProcessed = 0;
-while (queueItemsProcessed < 10000)
+while (queueItemsProcessed < 1)
 {
 	if (queueItemsProcessed % 1000 == 0)
 	{
@@ -56,4 +56,5 @@ while (queueItemsProcessed < 10000)
 	}
 }
 Console.WriteLine("Done.");
+var groupedStates = allCubeStates.GroupBy(x => x.Depth);
 Console.ReadKey();
