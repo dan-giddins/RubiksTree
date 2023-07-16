@@ -39,6 +39,7 @@ lock (queue)
 	queue.Enqueue(task);
 }
 var queueItemsProcessed = 0;
+Console.WriteLine("Finding cube states...");
 while (queueItemsProcessed < 100000)
 {
 	if (queueItemsProcessed % 1000 == 0)
@@ -57,5 +58,3 @@ while (queueItemsProcessed < 100000)
 	}
 }
 Console.WriteLine("Done.");
-//var groupedStates = allCubeStates.GroupBy(x => x.Depth);
-//Console.ReadKey();

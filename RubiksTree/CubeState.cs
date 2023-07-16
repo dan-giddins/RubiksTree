@@ -177,12 +177,7 @@ internal class CubeState
 		while (inputFacesEnumerator.MoveNext())
 		{
 			_ = testFacesEnumerator.MoveNext();
-			var current = inputFacesEnumerator.Current;
-			var current1 = testFacesEnumerator.Current;
-			var current2 = (FaceColour)current;
-			var current11 = (FaceColour)current1;
-			var v = current2 != current11;
-			if (v)
+			if ((FaceColour)inputFacesEnumerator.Current != (FaceColour)testFacesEnumerator.Current)
 			{
 				return false;
 			}
