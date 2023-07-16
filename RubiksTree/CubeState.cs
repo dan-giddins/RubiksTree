@@ -28,10 +28,10 @@ internal class CubeState
 		return result;
 	}
 
-	public Action GetGenAllTurnsAction(IList<CubeState> allCubeStates, Queue<Action> queue) =>
-		() => GenAllTurns(allCubeStates, queue);
+	public Task GetGenAllTurnsTask(IList<CubeState> allCubeStates, Queue<Task> queue) =>
+		new(() => GenAllTurns(allCubeStates, queue));
 
-	public void GenAllTurns(IList<CubeState> allCubeStates, Queue<Action> queue)
+	public void GenAllTurns(IList<CubeState> allCubeStates, Queue<Task> queue)
 	{
 		var turnBottomLeftFaces = DeepCopyFaces();
 		turnBottomLeftFaces[0, 1, 0] = Faces[1, 1, 0];
@@ -134,16 +134,16 @@ internal class CubeState
 		FaceColour[,,] faces,
 		CubeState? cubeState,
 		IList<CubeState> allCubeStates,
-		Queue<Action> queue)
+		Queue<Task> queue)
 	{
 		cubeState = GetCubeStateIfExists(faces, allCubeStates, cubeState);
 		if (cubeState is null)
 		{
 			cubeState = CreateNewCubeState(faces, allCubeStates);
-			var action = cubeState.GetGenAllTurnsAction(allCubeStates, queue);
+			var task = cubeState.GetGenAllTurnsTask(allCubeStates, queue);
 			lock (queue)
 			{
-				queue.Enqueue(action);
+				queue.Enqueue(task);
 			}
 		}
 		return cubeState;

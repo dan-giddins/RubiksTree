@@ -32,11 +32,11 @@ var solvedState = new CubeState(
 	0,
 	null);
 allCubeStates.Add(solvedState);
-var queue = new Queue<Action>();
-var action = solvedState.GetGenAllTurnsAction(allCubeStates, queue);
+var queue = new Queue<Task>();
+var task = solvedState.GetGenAllTurnsTask(allCubeStates, queue);
 lock (queue)
 {
-	queue.Enqueue(action);
+	queue.Enqueue(task);
 }
 var queueItemsProcessed = 0;
 while (queueItemsProcessed < 100000)
@@ -45,16 +45,14 @@ while (queueItemsProcessed < 100000)
 	{
 		Console.WriteLine($"{queueItemsProcessed}: {queue.Count}");
 	}
-	//await Task.Run(queue.Dequeue());
-	//queueItemsProcessed++;
 	bool gotItem;
 	lock (queue)
 	{
-		gotItem = queue.TryDequeue(out action);
+		gotItem = queue.TryDequeue(out task);
 	}
-	if (gotItem && action is not null)
+	if (gotItem && task is not null)
 	{
-		_ = Task.Run(action);
+		task.Start();
 		queueItemsProcessed++;
 	}
 }
