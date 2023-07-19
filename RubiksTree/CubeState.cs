@@ -41,8 +41,8 @@ internal class CubeState
 		turnBottomFacesTemp[3, 1, 1] = Faces[0, 1, 1];
 		turnBottomFacesTemp[5, 0, 0] = Faces[5, 0, 1];
 		turnBottomFacesTemp[5, 0, 1] = Faces[5, 1, 1];
-		turnBottomFacesTemp[5, 1, 0] = Faces[5, 0, 0];
 		turnBottomFacesTemp[5, 1, 1] = Faces[5, 1, 0];
+		turnBottomFacesTemp[5, 1, 0] = Faces[5, 0, 0];
 
 		var turnBottomFaces = DeepCopyFaces();
 		turnBottomFaces[0, 1, 0] = turnBottomFacesTemp[1, 1, 0];
@@ -55,8 +55,8 @@ internal class CubeState
 		turnBottomFaces[3, 1, 1] = turnBottomFacesTemp[0, 1, 1];
 		turnBottomFaces[5, 0, 0] = turnBottomFacesTemp[5, 0, 1];
 		turnBottomFaces[5, 0, 1] = turnBottomFacesTemp[5, 1, 1];
-		turnBottomFaces[5, 1, 0] = turnBottomFacesTemp[5, 0, 0];
 		turnBottomFaces[5, 1, 1] = turnBottomFacesTemp[5, 1, 0];
+		turnBottomFaces[5, 1, 0] = turnBottomFacesTemp[5, 0, 0];
 		TurnBottomCubeState = ProcessFaces(turnBottomFaces, TurnBottomCubeState, allCubeStates, queue);
 		TurnBottomCubeState.TurnBottomCubeState = this;
 
@@ -65,28 +65,28 @@ internal class CubeState
 		turnRightFacesTemp[0, 1, 1] = Faces[4, 1, 1];
 		turnRightFacesTemp[4, 0, 1] = Faces[2, 1, 0];
 		turnRightFacesTemp[4, 1, 1] = Faces[2, 0, 0];
-		turnRightFacesTemp[2, 0, 1] = Faces[5, 1, 1];
+		turnRightFacesTemp[2, 0, 0] = Faces[5, 1, 1];
 		turnRightFacesTemp[2, 1, 1] = Faces[5, 0, 1];
 		turnRightFacesTemp[5, 0, 1] = Faces[0, 0, 1];
 		turnRightFacesTemp[5, 1, 1] = Faces[0, 1, 1];
 		turnRightFacesTemp[1, 0, 0] = Faces[1, 0, 1];
 		turnRightFacesTemp[1, 0, 1] = Faces[1, 1, 1];
-		turnRightFacesTemp[1, 1, 0] = Faces[1, 0, 0];
 		turnRightFacesTemp[1, 1, 1] = Faces[1, 1, 0];
+		turnRightFacesTemp[1, 1, 0] = Faces[1, 0, 0];
 
 		var turnRightFaces = DeepCopyFaces();
 		turnRightFaces[0, 0, 1] = turnRightFacesTemp[4, 0, 1];
 		turnRightFaces[0, 1, 1] = turnRightFacesTemp[4, 1, 1];
 		turnRightFaces[4, 0, 1] = turnRightFacesTemp[2, 1, 0];
 		turnRightFaces[4, 1, 1] = turnRightFacesTemp[2, 0, 0];
-		turnRightFaces[2, 0, 1] = turnRightFacesTemp[5, 1, 1];
+		turnRightFaces[2, 0, 0] = turnRightFacesTemp[5, 1, 1];
 		turnRightFaces[2, 1, 1] = turnRightFacesTemp[5, 0, 1];
 		turnRightFaces[5, 0, 1] = turnRightFacesTemp[0, 0, 1];
 		turnRightFaces[5, 1, 1] = turnRightFacesTemp[0, 1, 1];
 		turnRightFaces[1, 0, 0] = turnRightFacesTemp[1, 0, 1];
 		turnRightFaces[1, 0, 1] = turnRightFacesTemp[1, 1, 1];
-		turnRightFaces[1, 1, 0] = turnRightFacesTemp[1, 0, 0];
 		turnRightFaces[1, 1, 1] = turnRightFacesTemp[1, 1, 0];
+		turnRightFaces[1, 1, 0] = turnRightFacesTemp[1, 0, 0];
 		TurnRightCubeState = ProcessFaces(turnRightFaces, TurnRightCubeState, allCubeStates, queue);
 		TurnRightCubeState.TurnRightCubeState = this;
 
@@ -101,8 +101,8 @@ internal class CubeState
 		turnBackFacesTemp[5, 1, 1] = Faces[3, 1, 0];
 		turnBackFacesTemp[2, 0, 0] = Faces[2, 1, 0];
 		turnBackFacesTemp[2, 0, 1] = Faces[2, 0, 0];
-		turnBackFacesTemp[2, 1, 0] = Faces[2, 1, 1];
 		turnBackFacesTemp[2, 1, 1] = Faces[2, 0, 1];
+		turnBackFacesTemp[2, 1, 0] = Faces[2, 1, 1];
 
 		var turnBackFaces = DeepCopyFaces();
 		turnBackFaces[1, 0, 1] = turnBackFacesTemp[5, 1, 1];
@@ -115,8 +115,8 @@ internal class CubeState
 		turnBackFaces[5, 1, 1] = turnBackFacesTemp[3, 1, 0];
 		turnBackFaces[2, 0, 0] = turnBackFacesTemp[2, 1, 0];
 		turnBackFaces[2, 0, 1] = turnBackFacesTemp[2, 0, 0];
-		turnBackFaces[2, 1, 0] = turnBackFacesTemp[2, 1, 1];
 		turnBackFaces[2, 1, 1] = turnBackFacesTemp[2, 0, 1];
+		turnBackFaces[2, 1, 0] = turnBackFacesTemp[2, 1, 1];
 		TurnBackCubeState = ProcessFaces(turnBackFaces, TurnBackCubeState, allCubeStates, queue);
 		TurnBackCubeState.TurnBackCubeState = this;
 	}
