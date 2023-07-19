@@ -3,10 +3,10 @@ internal class CubeState
 {
 	// front, right, back, left, top, bottom
 	public readonly FaceColour[,,] Faces;
-	public CubeState? TurnBottomAnticlockwiseCubeState;
 	public CubeState? TurnBottomClockwiseCubeState;
-	public CubeState? TurnRightAnticlockwiseCubeState;
+	public CubeState? TurnBottomAnticlockwiseCubeState;
 	public CubeState? TurnRightClockwiseCubeState;
+	public CubeState? TurnRightAnticlockwiseCubeState;
 	public CubeState? TurnBackClockwiseCubeState;
 	public CubeState? TurnBackAnticlockwiseCubeState;
 #pragma warning disable IDE0052 // Remove unread private members
