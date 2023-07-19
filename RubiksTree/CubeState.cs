@@ -39,6 +39,7 @@ internal class CubeState
 		turnBottomFacesTemp[2, 1, 1] = Faces[3, 1, 1];
 		turnBottomFacesTemp[3, 1, 0] = Faces[0, 1, 0];
 		turnBottomFacesTemp[3, 1, 1] = Faces[0, 1, 1];
+
 		turnBottomFacesTemp[5, 0, 0] = Faces[5, 0, 1];
 		turnBottomFacesTemp[5, 0, 1] = Faces[5, 1, 1];
 		turnBottomFacesTemp[5, 1, 1] = Faces[5, 1, 0];
@@ -53,6 +54,7 @@ internal class CubeState
 		turnBottomFaces[2, 1, 1] = turnBottomFacesTemp[3, 1, 1];
 		turnBottomFaces[3, 1, 0] = turnBottomFacesTemp[0, 1, 0];
 		turnBottomFaces[3, 1, 1] = turnBottomFacesTemp[0, 1, 1];
+
 		turnBottomFaces[5, 0, 0] = turnBottomFacesTemp[5, 0, 1];
 		turnBottomFaces[5, 0, 1] = turnBottomFacesTemp[5, 1, 1];
 		turnBottomFaces[5, 1, 1] = turnBottomFacesTemp[5, 1, 0];
@@ -66,7 +68,7 @@ internal class CubeState
 		turnRightFacesTemp[4, 0, 1] = Faces[2, 1, 0];
 		turnRightFacesTemp[4, 1, 1] = Faces[2, 0, 0];
 		turnRightFacesTemp[2, 0, 0] = Faces[5, 1, 1];
-		turnRightFacesTemp[2, 1, 1] = Faces[5, 0, 1];
+		turnRightFacesTemp[2, 1, 0] = Faces[5, 0, 1];
 		turnRightFacesTemp[5, 0, 1] = Faces[0, 0, 1];
 		turnRightFacesTemp[5, 1, 1] = Faces[0, 1, 1];
 		turnRightFacesTemp[1, 0, 0] = Faces[1, 0, 1];
@@ -80,7 +82,7 @@ internal class CubeState
 		turnRightFaces[4, 0, 1] = turnRightFacesTemp[2, 1, 0];
 		turnRightFaces[4, 1, 1] = turnRightFacesTemp[2, 0, 0];
 		turnRightFaces[2, 0, 0] = turnRightFacesTemp[5, 1, 1];
-		turnRightFaces[2, 1, 1] = turnRightFacesTemp[5, 0, 1];
+		turnRightFaces[2, 1, 0] = turnRightFacesTemp[5, 0, 1];
 		turnRightFaces[5, 0, 1] = turnRightFacesTemp[0, 0, 1];
 		turnRightFaces[5, 1, 1] = turnRightFacesTemp[0, 1, 1];
 		turnRightFaces[1, 0, 0] = turnRightFacesTemp[1, 0, 1];

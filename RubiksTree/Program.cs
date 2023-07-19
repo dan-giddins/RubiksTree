@@ -41,7 +41,7 @@ lock (queue)
 }
 var queueItemsProcessed = 0;
 Console.WriteLine("Finding cube states...");
-while (queueItemsProcessed < 1000)
+while (queue.Count > 0)
 {
 	if (queueItemsProcessed % 1000 == 0)
 	{
@@ -59,9 +59,8 @@ while (queueItemsProcessed < 1000)
 	}
 	if (gotItem && task is not null)
 	{
-		task.Start();
+		task.RunSynchronously();
 		queueItemsProcessed++;
 	}
 }
-var gsdjhof = allCubeStates.Where(x => x.Faces.Cast<FaceColour>().SequenceEqual(solvedState.Faces.Cast<FaceColour>()));
 Console.WriteLine("Done.");
