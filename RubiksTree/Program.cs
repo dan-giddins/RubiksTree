@@ -1,4 +1,5 @@
 ﻿using RubiksTree;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var allCubeStates = new List<CubeState>();
 var solvedState = new CubeState(
@@ -40,7 +41,7 @@ lock (queue)
 }
 var queueItemsProcessed = 0;
 Console.WriteLine("Finding cube states...");
-while (queueItemsProcessed < 100000)
+while (queueItemsProcessed < 1000)
 {
 	if (queueItemsProcessed % 1000 == 0)
 	{
@@ -62,4 +63,5 @@ while (queueItemsProcessed < 100000)
 		queueItemsProcessed++;
 	}
 }
+var gsdjhof = allCubeStates.Where(x => x.Faces.Cast<FaceColour>().SequenceEqual(solvedState.Faces.Cast<FaceColour>()));
 Console.WriteLine("Done.");
