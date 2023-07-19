@@ -40,7 +40,7 @@ lock (queue)
 }
 var queueItemsProcessed = 0;
 Console.WriteLine("Finding cube states...");
-while (queueItemsProcessed < 100000)
+while (queueItemsProcessed < 10000)
 {
 	if (queueItemsProcessed % 1000 == 0)
 	{
