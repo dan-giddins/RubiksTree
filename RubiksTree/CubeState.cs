@@ -33,23 +33,6 @@ internal class CubeState
 
 	public void GenAllTurns(IList<CubeState> allCubeStates, Queue<Task> queue)
 	{
-		// TODO: reorder clockwise, anticlockwise
-		var turnBottomAnticlockwiseFaces = DeepCopyFaces();
-		turnBottomAnticlockwiseFaces[0, 1, 0] = Faces[1, 1, 0];
-		turnBottomAnticlockwiseFaces[0, 1, 1] = Faces[1, 1, 1];
-		turnBottomAnticlockwiseFaces[1, 1, 0] = Faces[2, 1, 0];
-		turnBottomAnticlockwiseFaces[1, 1, 1] = Faces[2, 1, 1];
-		turnBottomAnticlockwiseFaces[2, 1, 0] = Faces[3, 1, 0];
-		turnBottomAnticlockwiseFaces[2, 1, 1] = Faces[3, 1, 1];
-		turnBottomAnticlockwiseFaces[3, 1, 0] = Faces[0, 1, 0];
-		turnBottomAnticlockwiseFaces[3, 1, 1] = Faces[0, 1, 1];
-		turnBottomAnticlockwiseFaces[5, 0, 0] = Faces[5, 0, 1];
-		turnBottomAnticlockwiseFaces[5, 0, 1] = Faces[5, 1, 1];
-		turnBottomAnticlockwiseFaces[5, 1, 1] = Faces[5, 1, 0];
-		turnBottomAnticlockwiseFaces[5, 1, 0] = Faces[5, 0, 0];
-		TurnBottomAnticlockwiseCubeState = ProcessFaces(turnBottomAnticlockwiseFaces, TurnBottomAnticlockwiseCubeState, allCubeStates, queue);
-		TurnBottomAnticlockwiseCubeState.TurnBottomClockwiseCubeState = this;
-
 		var turnBottomClockwiseFaces = DeepCopyFaces();
 		turnBottomClockwiseFaces[0, 1, 0] = Faces[3, 1, 0];
 		turnBottomClockwiseFaces[0, 1, 1] = Faces[3, 1, 1];
@@ -66,21 +49,21 @@ internal class CubeState
 		TurnBottomClockwiseCubeState = ProcessFaces(turnBottomClockwiseFaces, TurnBottomClockwiseCubeState, allCubeStates, queue);
 		TurnBottomClockwiseCubeState.TurnBottomAnticlockwiseCubeState = this;
 
-		var turnRightAnticlockwiseFaces = DeepCopyFaces();
-		turnRightAnticlockwiseFaces[0, 0, 1] = Faces[4, 0, 1];
-		turnRightAnticlockwiseFaces[0, 1, 1] = Faces[4, 1, 1];
-		turnRightAnticlockwiseFaces[4, 0, 1] = Faces[2, 1, 0];
-		turnRightAnticlockwiseFaces[4, 1, 1] = Faces[2, 0, 0];
-		turnRightAnticlockwiseFaces[2, 0, 0] = Faces[5, 1, 1];
-		turnRightAnticlockwiseFaces[2, 1, 0] = Faces[5, 0, 1];
-		turnRightAnticlockwiseFaces[5, 0, 1] = Faces[0, 0, 1];
-		turnRightAnticlockwiseFaces[5, 1, 1] = Faces[0, 1, 1];
-		turnRightAnticlockwiseFaces[1, 0, 0] = Faces[1, 0, 1];
-		turnRightAnticlockwiseFaces[1, 0, 1] = Faces[1, 1, 1];
-		turnRightAnticlockwiseFaces[1, 1, 1] = Faces[1, 1, 0];
-		turnRightAnticlockwiseFaces[1, 1, 0] = Faces[1, 0, 0];
-		TurnRightAnticlockwiseCubeState = ProcessFaces(turnRightAnticlockwiseFaces, TurnRightAnticlockwiseCubeState, allCubeStates, queue);
-		TurnRightAnticlockwiseCubeState.TurnRightClockwiseCubeState = this;
+		var turnBottomAnticlockwiseFaces = DeepCopyFaces();
+		turnBottomAnticlockwiseFaces[0, 1, 0] = Faces[1, 1, 0];
+		turnBottomAnticlockwiseFaces[0, 1, 1] = Faces[1, 1, 1];
+		turnBottomAnticlockwiseFaces[1, 1, 0] = Faces[2, 1, 0];
+		turnBottomAnticlockwiseFaces[1, 1, 1] = Faces[2, 1, 1];
+		turnBottomAnticlockwiseFaces[2, 1, 0] = Faces[3, 1, 0];
+		turnBottomAnticlockwiseFaces[2, 1, 1] = Faces[3, 1, 1];
+		turnBottomAnticlockwiseFaces[3, 1, 0] = Faces[0, 1, 0];
+		turnBottomAnticlockwiseFaces[3, 1, 1] = Faces[0, 1, 1];
+		turnBottomAnticlockwiseFaces[5, 0, 0] = Faces[5, 0, 1];
+		turnBottomAnticlockwiseFaces[5, 0, 1] = Faces[5, 1, 1];
+		turnBottomAnticlockwiseFaces[5, 1, 1] = Faces[5, 1, 0];
+		turnBottomAnticlockwiseFaces[5, 1, 0] = Faces[5, 0, 0];
+		TurnBottomAnticlockwiseCubeState = ProcessFaces(turnBottomAnticlockwiseFaces, TurnBottomAnticlockwiseCubeState, allCubeStates, queue);
+		TurnBottomAnticlockwiseCubeState.TurnBottomClockwiseCubeState = this;
 
 		var turnRightClockwiseFaces = DeepCopyFaces();
 		turnRightClockwiseFaces[0, 0, 1] = Faces[5, 0, 1];
@@ -97,6 +80,22 @@ internal class CubeState
 		turnRightClockwiseFaces[1, 0, 1] = Faces[1, 0, 0];
 		TurnRightClockwiseCubeState = ProcessFaces(turnRightClockwiseFaces, TurnRightClockwiseCubeState, allCubeStates, queue);
 		TurnRightClockwiseCubeState.TurnRightAnticlockwiseCubeState = this;
+
+		var turnRightAnticlockwiseFaces = DeepCopyFaces();
+		turnRightAnticlockwiseFaces[0, 0, 1] = Faces[4, 0, 1];
+		turnRightAnticlockwiseFaces[0, 1, 1] = Faces[4, 1, 1];
+		turnRightAnticlockwiseFaces[4, 0, 1] = Faces[2, 1, 0];
+		turnRightAnticlockwiseFaces[4, 1, 1] = Faces[2, 0, 0];
+		turnRightAnticlockwiseFaces[2, 0, 0] = Faces[5, 1, 1];
+		turnRightAnticlockwiseFaces[2, 1, 0] = Faces[5, 0, 1];
+		turnRightAnticlockwiseFaces[5, 0, 1] = Faces[0, 0, 1];
+		turnRightAnticlockwiseFaces[5, 1, 1] = Faces[0, 1, 1];
+		turnRightAnticlockwiseFaces[1, 0, 0] = Faces[1, 0, 1];
+		turnRightAnticlockwiseFaces[1, 0, 1] = Faces[1, 1, 1];
+		turnRightAnticlockwiseFaces[1, 1, 1] = Faces[1, 1, 0];
+		turnRightAnticlockwiseFaces[1, 1, 0] = Faces[1, 0, 0];
+		TurnRightAnticlockwiseCubeState = ProcessFaces(turnRightAnticlockwiseFaces, TurnRightAnticlockwiseCubeState, allCubeStates, queue);
+		TurnRightAnticlockwiseCubeState.TurnRightClockwiseCubeState = this;
 
 		var turnBackClockwiseFaces = DeepCopyFaces();
 		turnBackClockwiseFaces[1, 0, 1] = Faces[5, 1, 1];
